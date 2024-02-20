@@ -1,9 +1,26 @@
 //voy a utilizar un fragment para añadir varios etiquetas en mi return del componente App
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
 
 function App() {
 
   const [file, setFile] = useState(null)
+  //lista del nombre de las imagenes que estan en el banco de imagenes y estan siendo servidas por el servidor
+  const [imageList, setImageList] = useState([])
+
+  //estado para conseguir que una imagen cargada se muestre directamente en la parte cliente
+  const [listUpodated, setListUpdate] = useState(false)
+
+  //para mostar las imagenes del estado imageList
+  useEffect (()=>{
+    fetch('http://localhost:3000/images/get')
+    .then(res => res.json())
+    .then(res => setImageList(res))
+    .catch(err => {
+      console.error(err)
+    })  
+    setListUpdate(false)
+  },[listUpodated])
+
 
   //array con todos los archivos seleccionados, en nuestro caso solo uno, el primero
   const selectedHandler = e => {
@@ -23,12 +40,16 @@ function App() {
     const formdata = new FormData()
     formdata.append('image', file)
 
-    fetch('http://localhost:9000/images/post', {
+    fetch('http://localhost:3000/images/post', {
       method: 'POST',
       body: formdata
     })
     .then(res => res.text())
-    .then(res => console.log(res))
+    .then(res => {
+        console.log(res)
+        //como el estado esta cambiado realiza de nuevo el useffect
+        setListUpdate(true)
+    })
     .catch(err => {
       console.error(err)
     })
@@ -41,6 +62,7 @@ function App() {
   //nav es un navegador
   //href="#!" no apunta a ningun lado
   //input de tipo file para cargar un archivo
+  //haga una rejilla de datos y no lo amontone en una misma fila, sino utilice mas de una
   return (
     <Fragment>
       <nav className="navbar navbar-dark bg-dark">
@@ -60,6 +82,17 @@ function App() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="container mt-3" style={{display:"flex", flexWrap: "wrap"}}>
+
+        {imageList.map(image => (
+          <div key={image} className="card m-2">
+          <img src={'http://localhost:3000/'+ image} alt="..." className="card-img-top" styte={{height: "200px", with: "300px"}}/>
+        </div>
+
+        ))}
+
       </div>
     </Fragment>
   );
