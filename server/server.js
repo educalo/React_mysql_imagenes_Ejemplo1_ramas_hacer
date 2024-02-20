@@ -10,7 +10,7 @@ app.use(myconn(mysql, {
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: 'abc123',
+    password: '',
     database: 'images'
 }))
 app.use(cors())

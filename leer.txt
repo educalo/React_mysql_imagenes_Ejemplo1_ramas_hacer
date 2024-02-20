@@ -1,0 +1,11 @@
+PARTE SERVIDOR
+1.- npm install
+2.- Tengo que importar el fichero images.sql en una base de datos llamada images en xampp
+3.- npm run start
+4.- Echar un vistazo al fichero package.json para ver dependencias, se utiliza una dependencia que se llama Multer: es una librería de middleware para Node.js que se utiliza para manejar la subida de archivos en aplicaciones web. Multer permite recibir y procesar archivos adjuntos enviados desde formularios HTML u otras fuentes de datos de manera sencilla y eficiente
+5.- Tengo definidas en el servidor las rutas en la carpeta routes/routes.js
+
+
+PARTE CLIENTE
+1.- npm start
+2.- fichero App.jsx
