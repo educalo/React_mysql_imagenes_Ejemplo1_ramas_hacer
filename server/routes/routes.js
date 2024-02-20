@@ -49,4 +49,37 @@ router.post('/images/post', fileUpload,(req, res) => {
     
 })
 
+//defino el metodo get para recuperar las imagenes y mandarlas al cliente
+router.get('/images/get', (req, res) => {
+    //console.log(req.file)
+    //para recibir una conexion
+    req.getConnection((err, conn) => {
+        if(err) return res.status(500).send('server error')
+
+        //si pasar los nombres diferentes a los de la tabla tendria que pasarlos como type:nombre, donde type es el nombre de la tabla y nombre el nombre de la variable req.file...
+        conn.query('SELECT * FROM image', (err, rows) => {
+            if(err) return res.status(500).send('server error')
+            
+            rows.map(img => {
+                //creamos una imagen
+                //los datos de la limagen esta en img.data pasada como parametro
+                fs.writeFileSync(path.join(__dirname, '../dbimages/'+ img.id + '-monkeywit.png' ), img.data)
+            })
+            
+            //array con todas las imagenes de la carpeta dbimages
+            const imagedir = fs.readdirSync(path.join(__dirname, '../dbimagenes/'))
+            
+            res.json(imagedir)
+            //console.log(imagedir)
+            
+            //convertimos el objeto de js a json
+            //res.json(rows)
+            //ver por consola estas filas
+            //console.log(rows)
+        })
+    })
+    
+})
+
+
 module.exports = router
