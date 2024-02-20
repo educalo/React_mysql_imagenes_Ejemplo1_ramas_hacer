@@ -9,3 +9,4 @@ PARTE SERVIDOR
 PARTE CLIENTE
 1.- npm start
 2.- fichero App.jsx
+3.- para poder manejar ficheros modales puedo instalarlo con npm install react-modal
