@@ -1,1 +1,1 @@
-Tratamiento de imagenes en React. Esta segunda rama permite subir y mostrar imagenes de una base de datos.
+Tratamiento de imagenes en React. Esta tercera rama permite borrar imagenes en un formulario modal de una base de datos.
