@@ -67,7 +67,7 @@ router.get('/images/get', (req, res) => {
             })
             
             //array con todas las imagenes de la carpeta dbimages
-            const imagedir = fs.readdirSync(path.join(__dirname, '../dbimagenes/'))
+            const imagedir = fs.readdirSync(path.join(__dirname, '../dbimages/'))
             
             res.json(imagedir)
             //console.log(imagedir)
@@ -94,8 +94,6 @@ router.delete('/images/delete/:id', (req, res) => {
             
             //borrar el fichero en el bando de imagenes
             fs.unlinkSync(path.join(__dirname, '../dbimages/'+ req.params.id + '-monkeywit.png'))
-
-
             res.send('imagen borrada')
             //console.log(imagedir)
             

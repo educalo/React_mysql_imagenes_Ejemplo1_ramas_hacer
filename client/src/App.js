@@ -10,7 +10,7 @@ function App() {
   const [imageList, setImageList] = useState([])
 
   //estado para conseguir que una imagen cargada se muestre directamente en la parte cliente
-  const [listUpodated, setListUpdate] = useState(false)
+  const [listUpdated, setListUpdate] = useState(false)
 
   //estado para manejar el formulario modal
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -31,7 +31,7 @@ function App() {
       console.error(err)
     })  
     setListUpdate(false)
-  },[listUpodated])
+  },[listUpdated])
 
 
   //array con todos los archivos seleccionados, en nuestro caso solo uno, el primero
@@ -81,9 +81,17 @@ function App() {
     let imageID = currentImage.split('-')
     //para comprobar si tengo el numero del id en la descripcion de la imagen
     console.log(imageID[0])
+    //imageID = parseInt(imageID[0])
     
-    //fetch('http://localhost:3000/images/delete')
-  }
+    fetch('http://localhost:3000/images/delete/'+ imageID[0],  {
+      method: 'DELETE'
+      })
+      .then(res => res.text())
+      .then(res => console.log(res))
+      
+      setModalIsOpen(false)
+      setListUpdate(true)
+      }
 
   //nav es un navegador
   //href="#!" no apunta a ningun lado
@@ -116,7 +124,7 @@ function App() {
         {imageList.map(image => (
           <div key={image} className="card m-2">
           <img src={'http://localhost:3000/'+ image} alt="..." className="card-img-top" styte={{height: "200px", with: "300px"}}/>
-          <div classNmae="card-body">
+          <div className="card-body">
             <button onClick={()=> modalHandler(true, image)} className='btn btn-dark'>Click para ver</button>
           </div>
         </div>
@@ -126,9 +134,10 @@ function App() {
 
           <Modal style={{content:{right: "20%", left: "20%"}}} isOpen={modalIsOpen} onRequestClose={()=>modalHandler(false, null)}>
               <div className="card"></div>
+              {console.log(currentImage)}
               <img src={'http://localhost:3000/'+ currentImage}  alt="..."/>
                 <div className='card-body'>
-                  <button onClick={() => deleteHandler()}       className='btn btn-danger'>Delete</button>
+                  <button onClick={() => deleteHandler()} className='btn btn-danger'>Delete</button>
                 </div>
           </Modal>
 
