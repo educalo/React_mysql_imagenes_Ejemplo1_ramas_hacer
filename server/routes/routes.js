@@ -67,7 +67,7 @@ router.get('/images/get', (req, res) => {
             })
             
             //array con todas las imagenes de la carpeta dbimages
-            const imagedir = fs.readdirSync(path.join(__dirname, '../dbimagenes/'))
+            const imagedir = fs.readdirSync(path.join(__dirname, '../dbimages/'))
             
             res.json(imagedir)
             //console.log(imagedir)

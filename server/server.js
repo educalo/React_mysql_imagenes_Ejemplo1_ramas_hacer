@@ -16,7 +16,7 @@ app.use(myconn(mysql, {
 }))
 app.use(cors())
 //ruta estatica a mi carpeta dbimagenes para que pueda ser accedido desde mi navegador
-app.use(express.static(path.join(__dirname, 'dbimagees')))
+app.use(express.static(path.join(__dirname, 'dbimages')))
 
 app.use(require('./routes/routes'))
 

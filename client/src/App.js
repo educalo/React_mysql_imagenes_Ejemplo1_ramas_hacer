@@ -8,7 +8,7 @@ function App() {
   const [imageList, setImageList] = useState([])
 
   //estado para conseguir que una imagen cargada se muestre directamente en la parte cliente
-  const [listUpodated, setListUpdate] = useState(false)
+  const [listUpdated, setListUpdate] = useState(false)
 
   //para mostar las imagenes del estado imageList
   useEffect (()=>{
@@ -19,7 +19,7 @@ function App() {
       console.error(err)
     })  
     setListUpdate(false)
-  },[listUpodated])
+  },[listUpdated])
 
 
   //array con todos los archivos seleccionados, en nuestro caso solo uno, el primero
@@ -84,8 +84,7 @@ function App() {
         </div>
       </div>
 
-      <div className="container mt-3" style={{display:"flex", flexWrap: "wrap"}}>
-
+      <div className="container mt-3" style={{display: "flex", flexWrap: "wrap", width: "300px", height: "300px"}}>
         {imageList.map(image => (
           <div key={image} className="card m-2">
           <img src={'http://localhost:3000/'+ image} alt="..." className="card-img-top" styte={{height: "200px", with: "300px"}}/>
